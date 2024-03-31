@@ -14,7 +14,7 @@ pipeline {
 
     post {
         success {
-            archiveArtifacts artifacts: '**/*.jar', fingerprint: true 
+            archiveArtifacts artifacts: '**/*.zip', fingerprint: true 
         }
     }
 }
