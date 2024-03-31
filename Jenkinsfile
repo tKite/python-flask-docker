@@ -1,20 +1,28 @@
 pipeline {
     agent any
-    
+
     stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/tKite/python-flask-docker.git'
+            }
+        }
+
         stage('Build') {
             steps {
                 script {
-                    echo 'Building the project...'
-                    sh 'docker build -t tKite/python-flask-docker .'
+                    docker.build("python-flask-docker")
                 }
             }
         }
-    }
 
-    post {
-        success {
-            archiveArtifacts artifacts: '**/*.zip', fingerprint: true 
+        stage('Save Artifact') {
+            steps {
+                script {
+                    sh 'docker run --rm python-flask-docker tar -czvf app.tar.gz app.py'
+                    archiveArtifacts artifacts: 'app.tar.gz'
+                }
+            }
         }
     }
 }
