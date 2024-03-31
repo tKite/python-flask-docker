@@ -14,7 +14,7 @@ pipeline {
 
     post {
         success {
-            archiveArtifacts artifacts: '**/*.jar', allowEmptyArchive: true // Архивируем результат сборки
+            archiveArtifacts artifacts: '**/*.jar', fingerprint: true 
         }
     }
 }
