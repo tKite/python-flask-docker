@@ -16,11 +16,11 @@ pipeline {
             }
         }
 
-        stage('Save Artifact') {
+        stage('Save Executable Artifact') {
             steps {
                 script {
-                    sh 'docker run --rm python-flask-docker tar -czvf app.tar.gz app.py'
-                    archiveArtifacts artifacts: 'app.tar.gz'
+                    sh 'docker run --rm python-flask-docker sh -c "cp /app/app.py /data/app.py"'
+                    archiveArtifacts artifacts: 'app.py'
                 }
             }
         }
