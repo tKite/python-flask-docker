@@ -20,10 +20,10 @@ pipeline {
             steps {
                 script {
                     sh 'docker create --name temp_container python-flask-docker'
-                    sh 'mkdir -p /var/lib/jenkins/artifacts'
-                    sh 'docker cp temp_container:/app/. /var/lib/jenkins/artifacts'
+                    sh 'mkdir -p /var/lib/jenkins/workspace/project/artifacts'
+                    sh 'docker cp temp_container:/app/. /var/lib/jenkins/workspace/project/artifacts'
                     sh 'docker rm temp_container'
-                    archiveArtifacts artifacts: '/var/lib/jenkins/artifacts/*'
+                    archiveArtifacts artifacts: '/var/lib/jenkins/workspace/project/artifacts/*'
                 }
             }
         }
