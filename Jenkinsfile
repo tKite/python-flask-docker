@@ -16,11 +16,14 @@ pipeline {
             }
         }
 
-        stage('Save Executable Artifact') {
+        stage('Save Artifacts') {
             steps {
                 script {
-                    sh 'docker run --rm python-flask-docker sh -c "cp /app/app.py /data/app.py"'
-                    archiveArtifacts artifacts: 'app.py'
+                    sh 'docker create --name temp_container python-flask-docker'
+                    sh 'mkdir artifacts'
+                    sh 'docker cp temp_container:/app/. artifacts'
+                    sh 'docker rm temp_container'
+                    archiveArtifacts artifacts: 'artifacts/*'
                 }
             }
         }
