@@ -14,7 +14,7 @@ pipeline {
 
     post {
         success {
-            archiveArtifacts artifacts: 'rez.zip', allowEmptyArchive: true // Архивируем результат сборки
+            archiveArtifacts artifacts: '**/*.jar', allowEmptyArchive: true // Архивируем результат сборки
         }
     }
 }
